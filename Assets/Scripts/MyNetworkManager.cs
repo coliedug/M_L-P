@@ -5,19 +5,21 @@ using Mirror;
 
 public class MyNetworkManager : NetworkManager
 {
-    public static GameObject _Server { get; private set; }
-    public static InteractionManager _InteractionManager { get; private set; }
-    // Start is called before the first frame update
-    public override void OnStartServer()
+    public static MyNetworkManager singleton { get; private set; }
+    public override void Awake()
     {
-        if (_Server != null && _Server != this)
+        if (singleton == null)
         {
-            Destroy(this);
+            singleton = this;
         }
         else
         {
-            _Server = gameObject;
-            _InteractionManager = gameObject.GetComponent<InteractionManager>();
+            Destroy(this);
         }
     }
+    public override void OnStartServer()
+    {
+
+    }
+
 }

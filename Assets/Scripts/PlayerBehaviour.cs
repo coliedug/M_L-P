@@ -74,13 +74,14 @@ public class PlayerBehaviour : NetworkBehaviour
             // Note: Create onscreen prompt telling the player to press E to interact
             if (Input.GetKeyDown(KeyCode.E))
             {
-                hitObject.GetComponent<InteractableType>().Interact();
+                Interact(hitObject);
             }
         }
     }
 
-    private void OnDrawGizmos()
+    [Command]
+    private void Interact(GameObject interactedObject)
     {
-        Debug.DrawLine(playerCamera.transform.position, debugHitLocation, Color.red);
+        interactedObject.GetComponent<InteractionManager>().Interact();
     }
 }
